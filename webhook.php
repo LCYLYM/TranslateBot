@@ -83,7 +83,7 @@ class TranslateBot {
             return $rsp->error->message;
         } else if (isset($rsp->data->translations)) {
             $dt = $rsp->data->translations[0];
-            $result = $dt->translatedText;
+            $result = "<code>$dt->translatedText</code>";
             if (isset($dt->detectedSourceLanguage)) {
                 $result .= "\r\n源语言: $dt->detectedSourceLanguage";
             }
@@ -119,6 +119,7 @@ class TranslateBot {
             'chat_id'                  => $chat_id,
             'text'                     => $text,
             'reply_to_message_id'      => $reply_to_message_id,
+            'parse_mode'               => 'html',
             'disable_web_page_preview' => true,
         ));
     }
