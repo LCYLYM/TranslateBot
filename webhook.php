@@ -7,7 +7,7 @@ $message = $update->message;
 
 $app = new TranslateBot($message->chat->id);
 
-if (!isset($message->reply_to_message)) exit;
+if (!isset($message->reply_to_message->text)) exit;
 
 $text = $message->text;
 
@@ -35,7 +35,7 @@ class TranslateBot {
         require './config.php';
         $this->config = $Config;
         if (!isset($_GET['key']) || $_GET['key'] != $Config['webhook_key']) exit;
-        if (!$this->checkChat()) {
+        if (!$this->checkChat($chat_id)) {
             $app->send($chat_id,'本群不在白名单中。');
             $app->leave($chat_id);
             exit;
