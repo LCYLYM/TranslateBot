@@ -142,7 +142,7 @@ class TranslateBot {
      */
     protected function TelegramAPI($method,array $data) {
 
-        $token = $this->config['token'];
+        $token = $this->config['bot_token'];
 
         $data = json_encode($data);
         $url = "https://api.telegram.org/bot$token/$method";
