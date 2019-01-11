@@ -3,17 +3,19 @@
 $webhook = file_get_contents('php://input');
 $update = json_decode($webhook);
 
+if ($update->message->chat->type != ('group' || 'supergroup')) exit;
+
 $app = new TranslateBot($update->message->chat->id);
 
-if(!isset($update->message) || !isset($update->message->text)) exit;
+if (!isset($update->message) || !isset($update->message->text)) exit;
 $message = $update->message;
 
 if (!isset($message->reply_to_message->text)) exit;
 
 $text = $message->text;
 
-$explode = explode(' ',$text,2);
-if ($explode[0] != '/translate' && $explode[0] != '/translate@WooMaiTranslateBot' && $explode[0] != '/t') {
+$explode = explode(' ',$text);
+if ($explode[0] != '/translate' && $explode[0] != '/translate@WooMaiTranslateBot' && $explode[0] != '/t' && $explode[0] != '/t@WooMaiTranslateBot') {
     exit;
 } else {
     if (!isset($explode[1])) {
