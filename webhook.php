@@ -2,17 +2,18 @@
 
 $webhook = file_get_contents('php://input');
 $update = json_decode($webhook);
+
+$app = new TranslateBot($update->message->chat->id);
+
 if(!isset($update->message) || !isset($update->message->text)) exit;
 $message = $update->message;
-
-$app = new TranslateBot($message->chat->id);
 
 if (!isset($message->reply_to_message->text)) exit;
 
 $text = $message->text;
 
 $explode = explode(' ',$text,2);
-if ($explode[0] != ('/translate' || '/translate@WooMaiTranslateBot')) {
+if ($explode[0] != '/translate' && $explode[0] != '/translate@WooMaiTranslateBot' && $explode[0] != '/t') {
     exit;
 } else {
     if (!isset($explode[1])) {
