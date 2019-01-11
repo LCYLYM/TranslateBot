@@ -36,8 +36,8 @@ class TranslateBot {
         $this->config = $Config;
         if (!isset($_GET['key']) || $_GET['key'] != $Config['webhook_key']) exit;
         if (!$this->checkChat($chat_id)) {
-            $app->send($chat_id,'本群不在白名单中。');
-            $app->leave($chat_id);
+            $this->send($chat_id,'本群不在白名单中。');
+            $this->leave($chat_id);
             exit;
         }
         $this->api_token = $Config['api_token'];
