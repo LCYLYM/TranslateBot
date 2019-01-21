@@ -15,7 +15,10 @@ if (!isset($message->reply_to_message->text)) exit;
 $text = $message->text;
 
 $explode = explode(' ',$text);
-if ($explode[0] != '/translate' && $explode[0] != '/translate@WooMaiTranslateBot' && $explode[0] != '/t' && $explode[0] != '/t@WooMaiTranslateBot') {
+if ($explode[0] == '/load' && $message->from->id == '567989575') {
+    $load = sys_getloadavg();
+    $app->reply($message->chat->id,'服务器负载(1m/5m/15m): '.$load[0].', '.$load[1].', '.$load[2],$message->message_id);
+} else if ($explode[0] != '/translate' && $explode[0] != '/translate@WooMaiTranslateBot' && $explode[0] != '/t' && $explode[0] != '/t@WooMaiTranslateBot') {
     exit;
 } else {
     if (!isset($explode[1])) {
